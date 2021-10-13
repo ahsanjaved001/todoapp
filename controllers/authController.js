@@ -1,5 +1,5 @@
 exports.authentication = async (req, res, next) => {
-    if (req.session.isAuth)
+    if (req.session.userID)
         next();
     else
         res.status(401).json({

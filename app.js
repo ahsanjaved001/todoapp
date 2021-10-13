@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const mongoDbSession = require('connect-mongodb-session')(session);
 
-//const todoRouter = require('./routes/todoRoutes');
+const todoRouter = require('./routes/todoRoutes');
 const userRouter = require('./routes/userRoutes');
 
 const app = express();
@@ -23,7 +23,7 @@ app.use(session({
 
 app.use(express.json({ limit: '10kb' }));
 
-//app.use('/api/todo', todoRouter);
+app.use('/api/todo', todoRouter);
 app.use('/api/users', userRouter);
 
 module.exports = app;
