@@ -1,0 +1,19 @@
+{
+  "name": "ahsan",
+  "version": "1.0.0",
+  "description": "practice",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "ahsan",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mongoose": "^6.0.10"
+  }
+}
