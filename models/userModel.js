@@ -11,11 +11,10 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true
       },
-      password: {
+    password: {
         type: String,
         required: [true, 'Please provide a password'],
-        minlength: 8,
-        select: false
+        minlength: 8
       }
 });
 
