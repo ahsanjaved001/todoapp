@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
+const dbS = require('./models');
 
 const app = require('./app');
 
@@ -7,6 +8,10 @@ const DB = process.env.DATABASE.replace(
   '<password>',
   process.env.DATABASE_PASSWORD
 );
+
+dbS.sequelize.sync().then(() => {
+  console.log('Sequelize connected successfully');
+})
 
 mongoose
   .connect(DB, {
