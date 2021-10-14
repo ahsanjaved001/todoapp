@@ -4,9 +4,7 @@
   "description": "practice",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "watch:js": "parcel watch ./public/js/index.js --dist-dir ./public/js",
-    "build:js": "parcel watch ./public/js/index.js --dist-dir ./public/js"
+    "start": "nodemon server.js"
   },
   "author": "ahsan",
   "license": "ISC",
@@ -18,7 +16,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "mongoose": "^6.0.10",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {}
 }
