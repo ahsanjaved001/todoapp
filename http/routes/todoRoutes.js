@@ -1,6 +1,9 @@
 const express = require('express');
 const todoController = require('./../controllers/todoController');
+const StodoController = require('./../controllers/todo');
 const authController = require('./../controllers/authController');
+
+const controller = StodoController;
 
 const router = express.Router();
 
@@ -8,22 +11,22 @@ const router = express.Router();
 router
   .route('/')
   .get(authController.authentication, 
-    todoController.getAllTodos
+    controller.getAllTodos
   )
   .post(
     authController.authentication,
-    todoController.createTodo
+    controller.createTodo
   );
 
 router
   .route('/:id')
   .patch(
     authController.authentication,
-    todoController.updateTodo
+    controller.updateTodo
   )
   .delete(
     authController.authentication,
-    todoController.deleteTodo
+    controller.deleteTodo
   );
 
 

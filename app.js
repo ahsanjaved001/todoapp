@@ -4,9 +4,10 @@ const session = require('express-session');
 const mongoDbSession = require('connect-mongodb-session')(session);
 const cookieParser = require('cookie-parser');
 
-const todoRouter = require('./routes/todoRoutes');
-const userRouter = require('./routes/userRoutes');
-const viewRouter = require('./routes/viewRoutes');
+
+const todoRouter = require('./http/routes/todoRoutes');
+const userRouter = require('./http/routes/userRoutes');
+const viewRouter = require('./http/routes/viewRoutes');
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(cookieParser());
 const store = new mongoDbSession({
     uri: 'mongodb+srv://ahsan001:ahsan001@cluster0.s5ahb.mongodb.net/todoapp?retryWrites=true&w=majority',
     collection: 'sessions'
-})
+});
 
 app.use(session({
     secret: 'secretKEY ',

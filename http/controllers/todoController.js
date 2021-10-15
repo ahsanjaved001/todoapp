@@ -1,4 +1,4 @@
-const Todo = require('./../models/todoModel');
+const Todo = require('../../models/todoModel');
 
 
 
@@ -53,7 +53,7 @@ exports.deleteTodo = async (req, res, next) => {
         message = "Todo is deleted";
     }
 
-    res.status(204).json({
+    res.status(200).json({
       message
     });
 };
