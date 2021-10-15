@@ -8,7 +8,7 @@ exports.loginUser = async (req, res, next) => {
 
   if(user && user.password === req.body.password){
       req.session.userID = user.id;
-      message = "User logged in";
+      message = "success";
   } else {
       message = "Incorrect email or password";
   }

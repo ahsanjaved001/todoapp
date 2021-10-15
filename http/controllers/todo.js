@@ -27,7 +27,7 @@ exports.updateTodo = async (req, res, next) => {
     const todo = await Todo.update({
         name: req.body.name,
         description: req.body.description
-    },{where: { id: req.params.id }});
+    },{where: { id: req.params.id, userID: req.session.userID }});
 
     let message;
     if (!todo) {
@@ -42,7 +42,7 @@ exports.updateTodo = async (req, res, next) => {
 };
 
 exports.deleteTodo = async (req, res, next) => {
-    const todo = await Todo.destroy({where:{id: req.params.id}});
+    const todo = await Todo.destroy({where:{id: req.params.id, userID: req.session.userID}});
 
     let message;
     if (!todo) {

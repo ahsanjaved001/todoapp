@@ -8,4 +8,6 @@ router.get('/', viewsController.getLoginForm);
 
 router.get('/signup', viewsController.getSignupForm);
 
+router.get('/todo', authController.authentication, viewsController.getTodos);
+
 module.exports = router;

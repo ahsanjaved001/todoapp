@@ -9,6 +9,8 @@ const login = async ( email, password ) => {
                 password
             }
         });
+        if (res.data.message === 'success')
+            window.location = "http://localhost:3000/todo";
         console.log(res);
     }
     catch (err){

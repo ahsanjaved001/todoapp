@@ -1,0 +1,26 @@
+doctype html
+html
+    head
+        title Todo | Signup
+        link(rel='stylesheet' href='https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css')
+    
+    body(style='width:30%; margin:10% 30%')
+        table.table
+            thead
+                tr
+                    th(scope='col') #
+                    th(scope='col') Name
+                    th(scope='col') Description
+                    th(scope='col') Created At
+                    th(scope='col') Options
+            tbody
+                - let count = 0;
+                each todo in todos
+                    tr
+                        th(scope='row') count++
+                        th(scope='row') todo.name
+                        th(scope='row') todo.description
+                        th(scope='row') todo.createdAt
+                        th(scope='row')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js')
+    script(src='/js/signup.js')
