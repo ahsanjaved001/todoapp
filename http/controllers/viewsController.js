@@ -1,5 +1,5 @@
 //const Todo = require('../../models/todo');
-const Todo = require('../../models/todoModel');
+const Todo = require('../../models/mongoose/todoModel');
 
 exports.getLoginForm = (req, res, next) => {
     res.status(200).render('login', {

@@ -36,10 +36,11 @@ const addTodo = async (name, description) => {
                 description
             }
         });
-        if (res.data.status === 'success')
-            window.location = "http://localhost:3000/todo";
-        else
-            window.location = "http://localhost:3000/todo/new/";
+        console.log(res);
+        // if (res.data.status === 'success')
+        //     window.location = "http://localhost:3000/todo";
+        // else
+        //     window.location = "http://localhost:3000/todo/new/";
     }
     catch (err) {
         console.log(err.response.data);

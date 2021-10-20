@@ -10,7 +10,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(authController.authentication, 
+  .get(authController.authentication,
     controller.getAllTodos
   )
   .post(
