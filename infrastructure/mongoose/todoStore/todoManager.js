@@ -5,7 +5,6 @@ exports.getAllTodos = async (req) => {
 };
 
 exports.createTodo = async (req) => {
-    console.log(req.body.name, req.body.description, req.session.userID);
     return newTodo = await Todo.create({
         name: req.body.name,
         description: req.body.description,

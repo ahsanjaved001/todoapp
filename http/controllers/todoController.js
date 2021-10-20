@@ -1,4 +1,9 @@
-const Todo = require('./../../infrastructure/mongoose/todoStore/todoManager');
+const dotenv = require('dotenv').config();
+let Todo;
+if (process.env.DATABASE_DRIVER === 'mongoose')
+    Todo = require('./../../infrastructure/mongoose/todoStore/todoManager');
+else
+    Todo = require('./../../infrastructure/sql/todoStore/todoManager');
 
 exports.getAllTodos = async (req, res, next) => {
     res.status(200).json({
