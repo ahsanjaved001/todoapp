@@ -36,30 +36,31 @@ const addTodo = async (name, description) => {
                 description
             }
         });
-        console.log(res);
-        // if (res.data.status === 'success')
-        //     window.location = "http://localhost:3000/todo";
-        // else
-        //     window.location = "http://localhost:3000/todo/new/";
+        if (res.data.status === 'success')
+            window.location = "http://localhost:3000/todo";
+        else
+            window.location = "http://localhost:3000/todo/new/";
     }
     catch (err) {
         console.log(err.response.data);
     }
 };
 
-document.querySelector('.update-todo').addEventListener('submit', e => {
-    e.preventDefault();
-    const id = document.getElementById('inputId').value;
-    const name = document.getElementById('inputName').value;
-    const description = document.getElementById('inputDescription').value;
+try {
+    document.querySelector('.update-todo').addEventListener('submit', e => {
+        e.preventDefault();
+        const id = document.getElementById('inputId').value;
+        const name = document.getElementById('inputName').value;
+        const description = document.getElementById('inputDescription').value;
 
-    updateTodo(id, name, description);
-});
+        updateTodo(id, name, description);
+    });
+} catch (err) {
+    document.querySelector('.form-todo').addEventListener('submit', e => {
+        e.preventDefault();
+        const name = document.getElementById('inputName1').value;
+        const description = document.getElementById('inputDescription1').value;
 
-document.querySelector('.form-todo').addEventListener('submit', e => {
-    e.preventDefault();
-    const name = document.getElementById('inputName').value;
-    const description = document.getElementById('inputDescription').value;
-
-    addTodo(name, description);
-});
+        addTodo(name, description);
+    });
+}

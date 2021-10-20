@@ -1,36 +1,25 @@
-const Todo = require('../../models/mongoose/todoModel');
-
-
+const Todo = require('./../../infrastructure/mongoose/todoStore/todoManager');
 
 exports.getAllTodos = async (req, res, next) => {
-
-    const todo = await Todo.find({ userID: req.session.userID });
-
-    // SEND RESPONSE
     res.status(200).json({
         status: 'success',
         results: todo.length,
         data: {
-            data: todo
+            data: Todo.getAllTodos(req)
         }
     });
 };
 
 exports.createTodo = async (req, res, next) => {
-    const newTodo = await Todo.create({
-        name: req.body.name,
-        description: req.body.description,
-        userID: req.session.userID
-    });
-
     res.status(200).json({
         status: 'success',
-        message: "Todo created"
+        message: "Todo created",
+        data: Todo.createTodo(req)
     });
 };
 
 exports.updateTodo = async (req, res, next) => {
-    const todo = await Todo.findByIdAndUpdate(req.params.id, req.body);
+    const todo = Todo.updateTodo(req);
     let message, status;
     if (!todo) {
         message = "No document is found against that id";
@@ -47,7 +36,7 @@ exports.updateTodo = async (req, res, next) => {
 };
 
 exports.deleteTodo = async (req, res, next) => {
-    const todo = await Todo.findByIdAndDelete(req.params.id);
+    const todo = Todo.deleteTodo(req);
 
     let message, status;
     if (!todo) {
