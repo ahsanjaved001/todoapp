@@ -1,0 +1,19 @@
+doctype html
+html
+    head
+        title Todo | Login
+        link(rel='stylesheet' href='https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css')
+    
+    body(style='width:30%; margin:10% 30%')
+        form.form-login
+            h2.h3.mb-3.font-weight-normal.text-center Log in to your account
+            .form-group
+                label(for='inputEmail') Email address
+                input#inputEmail.form-control(type='email', placeholder='Email address', required, autofocus)
+            .form-group
+                label(for='inputPassword') Password
+                input#inputPassword.form-control(type='password', placeholder='Password', required, autofocus)
+            button.btn.btn-primary.btn-block(type='submit') Sign in
+            a(href='/signup', style='float:right; margin-top:15px') Sign up?
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js')
+    script(src='/js/login.js')
