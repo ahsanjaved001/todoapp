@@ -1,13 +1,16 @@
 const path = require('path');
+const passport = require('passport');
 const express = require('express');
 const session = require('express-session');
 const mongoDbSession = require('connect-mongodb-session')(session);
 const cookieParser = require('cookie-parser');
+require('./passport');
 
 
 const todoRouter = require('./http/routes/todoRoutes');
 const userRouter = require('./http/routes/userRoutes');
 const viewRouter = require('./http/routes/viewRoutes');
+const passport = require('passport');
 
 const app = express();
 
@@ -23,9 +26,25 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store
-  })
+})
 );
- 
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/auth/google',
+    passport.authenticate('google', {
+        scope:
+            ['email', 'profile']
+    }
+    ));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/todo',
+        failureRedirect: '/'
+    }));
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 

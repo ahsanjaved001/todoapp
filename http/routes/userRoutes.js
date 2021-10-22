@@ -1,7 +1,6 @@
 const express = require('express');
 const userController = require('./../controllers/userController');
-//const SuserController = require('./../controllers/user');
-const authController = require('./../controllers/authController');
+const auth = require('./../middleware/auth');
 
 const controller = userController;
 
@@ -13,7 +12,7 @@ router
 
 router
   .route('/dashboard')
-  .get(authController.authentication, controller.dashboard);
+  .get(auth.authentication, controller.dashboard);
 
 router.post('/signup', controller.signup);
 

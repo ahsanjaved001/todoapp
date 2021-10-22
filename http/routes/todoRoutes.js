@@ -1,7 +1,7 @@
 const express = require('express');
 const todoController = require('./../controllers/todoController');
 //const StodoController = require('./../controllers/todo');
-const authController = require('./../controllers/authController');
+const auth = require('./../middleware/auth');
 
 const controller = todoController;
 
@@ -10,22 +10,22 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(authController.authentication,
+  .get(auth.authentication,
     controller.getAllTodos
   )
   .post(
-    authController.authentication,
+    auth.authentication,
     controller.createTodo
   );
 
 router
   .route('/:id')
   .patch(
-    authController.authentication,
+    auth.authentication,
     controller.updateTodo
   )
   .delete(
-    authController.authentication,
+    auth.authentication,
     controller.deleteTodo
   );
 
