@@ -1,4 +1,4 @@
-const User = require('./../../../models/mysql/user');
+const User = require('./../../mysql/models/user');
 
 exports.loginUser = async (req) => {
     return await User.findOne({ where: { email: req.body.email }});

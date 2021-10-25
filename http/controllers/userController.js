@@ -1,10 +1,5 @@
-const dotenv = require('dotenv').config();
-const userClass = require('./../../appplication/user/user');
-let User;
-if (process.env.DATABASE_DRIVER === 'mongoose')
-    User = require('./../../infrastructure/mongoose/userStore/userManager');
-else
-    User = require('./../../infrastructure/sql/userStore/userManager');
+const userClass = require('./../../app/domain/user/userEntity');
+const User = require('./../../app/infrastructure/store/userStore/userManager');
 
 exports.loginUser = async (req, res, next) => {
 

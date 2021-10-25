@@ -1,17 +1,13 @@
-const dotenv = require('dotenv').config();
-const todoClass = require('./../../appplication/todo/todo');
-let Todo;
-if (process.env.DATABASE_DRIVER === 'mongoose')
-    Todo = require('./../../infrastructure/mongoose/todoStore/todoManager');
-else
-    Todo = require('./../../infrastructure/sql/todoStore/todoManager');
+const todoClass = require('./../../app/domain/todo/todoEntity');
+const Todo = require('./../../app/infrastructure/store/todoStore/todoManager');
 
 exports.getAllTodos = async (req, res, next) => {
+    const todo = await Todo.getAllTodos(req);
     res.status(200).json({
         status: 'success',
-        results: todo.length,
+        length: todo.length,
         data: {
-            data: Todo.getAllTodos(req)
+            data: todo
         }
     });
 };
@@ -19,10 +15,11 @@ exports.getAllTodos = async (req, res, next) => {
 exports.createTodo = async (req, res, next) => {
     let todo = new todoClass();
     todo = todo.initializingTodo(req.body.name, req.body.description, req.session.userID);
+    todo = await Todo.createTodo(todo);
     res.status(200).json({
         status: 'success',
         message: "Todo created",
-        data: Todo.createTodo(todo)
+        data: todo
     });
 };
 

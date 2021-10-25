@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./../sq_db');
+const sequelize = require('./../connection');
 
 const Todo = sequelize.define('todos', {
     id: {

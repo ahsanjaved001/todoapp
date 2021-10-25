@@ -13,4 +13,7 @@ class User {
     }
 }
 
+const user = new User();
+
+
 exports.module = User;

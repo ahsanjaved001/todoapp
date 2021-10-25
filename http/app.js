@@ -3,13 +3,12 @@ const express = require('express');
 const session = require('express-session');
 const mongoDbSession = require('connect-mongodb-session')(session);
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
 require('./passport-setup');
 
 
-const todoRouter = require('./http/routes/todoRoutes');
-const userRouter = require('./http/routes/userRoutes');
-const viewRouter = require('./http/routes/viewRoutes');
-const passport = require('passport');
+const todoRouter = require('./../http/routes/todoRoutes');
+const userRouter = require('./../http/routes/userRoutes');
 
 const app = express();
 
@@ -51,7 +50,6 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/', viewRouter);
 app.use('/api/todo', todoRouter);
 app.use('/api/users', userRouter);
 

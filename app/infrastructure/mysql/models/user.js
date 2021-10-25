@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../../sq_db');
+const sequelize = require('./../connection');
 const uuid = require('uuid');
 
 const User = sequelize.define('users', {
