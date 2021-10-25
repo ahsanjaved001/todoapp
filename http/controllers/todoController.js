@@ -13,8 +13,7 @@ exports.getAllTodos = async (req, res, next) => {
 };
 
 exports.createTodo = async (req, res, next) => {
-    let todo = new todoClass();
-    todo = todo.initializingTodo(req.body.name, req.body.description, req.session.userID);
+    let todo = todoClass.createFromInput(req.session.userID, req.body.name, req.body.description);
     todo = await Todo.createTodo(todo);
     res.status(200).json({
         status: 'success',
@@ -24,7 +23,7 @@ exports.createTodo = async (req, res, next) => {
 };
 
 exports.updateTodo = async (req, res, next) => {
-    const todo = Todo.updateTodo(req);
+    const todo = await Todo.updateTodo(req);
     let message, status;
     if (!todo) {
         message = "No document is found against that id";
@@ -36,7 +35,8 @@ exports.updateTodo = async (req, res, next) => {
 
     res.status(200).json({
         status,
-        message
+        message,
+        todo
     });
 };
 

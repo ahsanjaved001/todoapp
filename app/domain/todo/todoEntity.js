@@ -4,16 +4,9 @@ class Todo {
         this.name = name;
         this.description = description;
     }
-
-    initializingTodo(name, description, userID){
-        this.name = name;
-        this.description = description;
-        this.userID = userID;
-        return this;
-    }
     
-    static createFromInput(name, description){
-        //generate uuid
+    static createFromInput(userID, name, description){
+        return new Todo(userID, name, description);
     }
 
     static createFromDb(userID, name, description){

@@ -1,11 +1,10 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./../connection');
-const uuid = require('uuid');
+
 
 const User = sequelize.define('users', {
     id: {
         type: Sequelize.CHAR,
-        defaultValue: uuid.v4(),
         allowNull: false,
         primaryKey: true
     },
