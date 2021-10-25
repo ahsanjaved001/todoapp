@@ -1,0 +1,31 @@
+{
+  "name": "ahsan",
+  "version": "1.0.0",
+  "description": "practice",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "ahsan",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "bootstrap-icons": "^1.6.0",
+    "connect-mongodb-session": "^3.1.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "googleapis": "^89.0.0",
+    "mongoose": "^6.0.10",
+    "mysql2": "^2.3.0",
+    "passport": "^0.5.0",
+    "passport-google-oauth2": "^0.2.0",
+    "pug": "^3.0.2",
+    "sequelize": "^6.7.0",
+    "sequelize-cli": "^6.2.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {}
+}
