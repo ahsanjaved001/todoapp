@@ -3,8 +3,8 @@ const express = require('express');
 const session = require('express-session');
 const mongoDbSession = require('connect-mongodb-session')(session);
 const cookieParser = require('cookie-parser');
-const passport = require('passport');
-require('./passport-setup');
+// const passport = require('passport');
+// require('./passport-setup');
 
 
 const todoRouter = require('./../http/routes/todoRoutes');
@@ -27,27 +27,28 @@ app.use(session({
 })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-app.get('/google',
-    passport.authenticate('google', {
-        scope:
-            ['profile', 'email']
-    }
-    ));
+// app.get('/google',
+//     passport.authenticate('google', {
+//         scope:
+//             ['profile', 'email']
+//     }
+//     ));
 
-app.get('/google/callback',
-    passport.authenticate('google', {failureRedirect: '/'}),
-    function(req, res){
-        res.redirect('/todo');
-    });
+// app.get('/google/callback',
+//     passport.authenticate('google', {failureRedirect: '/'}),
+//     function(req, res){
+//         res.redirect('/todo');
+//     });
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+// Used to set views and static files in public folder
+// app.set('view engine', 'pug');
+// app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.json({ limit: '10kb' }));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.json({ limit: '10kb' }));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/api/todo', todoRouter);
