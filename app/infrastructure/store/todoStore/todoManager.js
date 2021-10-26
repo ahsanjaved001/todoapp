@@ -4,11 +4,11 @@ exports.getAllTodos = async (req) => {
     return await Todo.findAll({ where: { userID: req.session.userID } });
 };
 
-exports.createTodo = async (todo) => {
+exports.createTodo = async (todo, req) => {
     return newTodo = await await Todo.create({
+        userID: req.session.userID,
         name: todo.name,
-        description: todo.description,
-        userID: todo.userID
+        description: todo.description
     });
 };
 

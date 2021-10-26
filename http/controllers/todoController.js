@@ -1,20 +1,26 @@
-const todoClass = require('./../../app/domain/todo/todoEntity');
-const Todo = require('./../../app/infrastructure/store/todoStore/todoManager');
+const Todo = require('./../../app/domain/todo/todoEntity');
+const todoManager = require('./../../app/infrastructure/store/todoStore/todoManager');
 
 exports.getAllTodos = async (req, res, next) => {
-    const todo = await Todo.getAllTodos(req);
+    const todos = await todoManager.getAllTodos(req);
+    let todoArr = [];
+
+    todos.forEach((todo, index) => {
+        todoArr[index] = Todo.createFromDb(todo.id, todo.userID, todo.name, todo.description, todo.createdAt, todo.updatedAt);
+    });
+    
     res.status(200).json({
         status: 'success',
-        length: todo.length,
+        length: todoArr.length,
         data: {
-            data: todo
+            todos: todoArr
         }
     });
 };
 
 exports.createTodo = async (req, res, next) => {
-    let todo = todoClass.createFromInput(req.session.userID, req.body.name, req.body.description);
-    todo = await Todo.createTodo(todo);
+    let todo = Todo.createFromInput(req.body.name, req.body.description);
+    todo = await todoManager.createTodo(todo, req);
     res.status(200).json({
         status: 'success',
         message: "Todo created",
@@ -23,7 +29,7 @@ exports.createTodo = async (req, res, next) => {
 };
 
 exports.updateTodo = async (req, res, next) => {
-    const todo = await Todo.updateTodo(req);
+    const todo = await todoManager.updateTodo(req);
     let message, status;
     if (!todo) {
         message = "No document is found against that id";
@@ -41,7 +47,7 @@ exports.updateTodo = async (req, res, next) => {
 };
 
 exports.deleteTodo = async (req, res, next) => {
-    const todo = Todo.deleteTodo(req);
+    const todo = todoManager.deleteTodo(req);
 
     let message, status;
     if (!todo) {

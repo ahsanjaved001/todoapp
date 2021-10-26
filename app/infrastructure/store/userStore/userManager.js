@@ -6,6 +6,7 @@ exports.fetchUser = async (req) => {
 
 exports.createUser = async (user) => {
     return await User.create({
+        id: user.id,
         name: user.name,
         email: user.email,
         password: user.password
