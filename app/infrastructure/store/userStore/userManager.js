@@ -9,6 +9,8 @@ exports.createUser = async (user) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        password: user.password
+        password: user.password,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
       });
 };

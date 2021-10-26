@@ -10,6 +10,8 @@ class User {
     static createFromInput(name, email, password){
         let user = new User(name, email, password);
         user.id = uuid.v4();
+        user.createdAt = new Date();
+        user.updatedAt = new Date();
         return user;
     }
 }

@@ -6,9 +6,12 @@ exports.getAllTodos = async (req) => {
 
 exports.createTodo = async (todo, req) => {
     return newTodo = await await Todo.create({
+        id: todo.id,
         userID: req.session.userID,
         name: todo.name,
-        description: todo.description
+        description: todo.description,
+        createdAt: todo.createdAt,
+        updatedAt: todo.updatedAt
     });
 };
 

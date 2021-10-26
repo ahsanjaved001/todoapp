@@ -3,8 +3,7 @@ const sequelize = require('./../connection');
 
 const Todo = sequelize.define('todos', {
     id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+        type: Sequelize.CHAR,
         allowNull: false,
         primaryKey: true
     },
