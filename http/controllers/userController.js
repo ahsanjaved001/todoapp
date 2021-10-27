@@ -1,31 +1,29 @@
-const User = require('./../../app/domain/user/userEntity');
-const userManager = require('./../../app/infrastructure/store/userStore/userManager');
+const UserService = require('./../../app/application/UserService');
 
 exports.loginUser = async (req, res, next) => {
 
-    const user = await userManager.fetchUser(req);
-
-    let message;
-    if (user && user.password === req.body.password) {
-        req.session.userID = user.id;
-        message = "success";
-    } else {
-        message = "Incorrect email or password";
-    }
+    const user = await UserService.loginUser(req);
 
     res.status(200).json({
-        message
+        message: user
     });
 }
 
 exports.signup = async (req, res, next) => {
-    let user = User.createFromInput(req.body.name, req.body.email, req.body.password);
-    user = await userManager.createUser(user);
+    const user = UserService.addUser(req);
 
     res.status(200).json({
         status: 'success',
         message: "User signed up",
         user
+    });
+}
+
+exports.updateMe = async (req, res, next) => {
+    const user = UserService.updateUser(req);
+
+    res.status(200).json({
+        message: "User updated successfully"
     });
 }
 

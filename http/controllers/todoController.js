@@ -1,65 +1,40 @@
-const Todo = require('./../../app/domain/todo/todoEntity');
-const todoManager = require('./../../app/infrastructure/store/todoStore/todoManager');
+const TodoService = require('./../../app/application/TodoService');
 
 exports.getAllTodos = async (req, res, next) => {
-    const todos = await todoManager.getAllTodos(req);
-    let todoArr = [];
-
-    todos.forEach((todo, index) => {
-        todoArr[index] = Todo.createFromDb(todo.id, todo.userID, todo.name, todo.description, todo.createdAt, todo.updatedAt);
-    });
+    const todos = await TodoService.fetchAllTodos(req);    
     
     res.status(200).json({
         status: 'success',
-        length: todoArr.length,
+        length: todos.length,
         data: {
-            todos: todoArr
+            todos
         }
     });
 };
 
 exports.createTodo = async (req, res, next) => {
-    let todo = Todo.createFromInput(req.body.name, req.body.description);
-    todo = await todoManager.createTodo(todo, req);
+    const todo = await TodoService.addTodo(req);
+
     res.status(200).json({
         status: 'success',
         message: "Todo created",
-        data: todo
+        data: {
+            todo
+        }
     });
 };
 
 exports.updateTodo = async (req, res, next) => {
-    const todo = await todoManager.updateTodo(req);
-    let message, status;
-    if (!todo) {
-        message = "No document is found against that id";
-        status = "failed";
-    } else {
-        message = "Todo is updated";
-        status = "success";
-    }
+    await TodoService.updateTodo(req);
 
     res.status(200).json({
-        status,
-        message,
-        todo
+        message: "Todo updated successfully",
     });
 };
 
 exports.deleteTodo = async (req, res, next) => {
-    const todo = todoManager.deleteTodo(req);
-
-    let message, status;
-    if (!todo) {
-        message = "No document is found against that id";
-        status = 'failed';
-    } else {
-        message = "Todo is deleted";
-        status = 'success';
-    }
-
+    TodoService.removeTodo(req);
     res.status(200).json({
-        status,
-        message
+        message: "Todo deleted successfully"
     });
 };

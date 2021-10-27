@@ -1,6 +1,5 @@
-const Sequelize = require('sequelize');
+const { Sequelize } = require('sequelize');
 const sequelize = require('./../connection');
-
 const Todo = sequelize.define('todos', {
     id: {
         type: Sequelize.CHAR,
