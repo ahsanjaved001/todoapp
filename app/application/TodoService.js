@@ -1,9 +1,14 @@
 const TodoEntity = require('../domain/todo/TodoEntity');
 const TodoStore = require('../infrastructure/store/TodoStore');
+const Pagination = require('../infrastructure/Utils/Pagination');
 
 class TodoService {
     static async fetchAllTodos(req){
-        return await TodoStore.fetchAllForUser(req.session.userID);
+        const {page,size} = req.query;
+        console.log(page);
+        const pagination = new Pagination( page ? parseInt(page) : page, size ? parseInt(size) : size);
+        console.log(pagination);
+        return await TodoStore.fetchAllForUser(req.session.userID, pagination);
     }
 
     static async addTodo(req){

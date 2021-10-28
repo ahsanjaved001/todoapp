@@ -4,8 +4,8 @@ const TodoEntity = require('./../../domain/todo/TodoEntity');
 
 class TodoStore {
 
-    static async fetchAllForUser(userID){
-        const todos = await Todo.findAll({ where: { userID } });
+    static async fetchAllForUser(userID, pagination){
+        const todos = await Todo.findAll({ limit: pagination.limit(), offset: pagination.offset(), where: { userID } });
 
         return todos.map(todo => {
             return TodoEntity.createFromDb(todo.id, todo.userID, todo.name, todo.description, todo.createdAt, todo.updatedAt);
@@ -18,7 +18,7 @@ class TodoStore {
     }
 
     static async add(todo){
-         return await Todo.create(todo.toObj());
+        return await Todo.create(todo.toObj());
     }
 
     static async update(todo){
