@@ -5,9 +5,7 @@ const Pagination = require('../infrastructure/Utils/Pagination');
 class TodoService {
     static async fetchAllTodos(req){
         const {page,size} = req.query;
-        console.log(page);
         const pagination = new Pagination( page ? parseInt(page) : page, size ? parseInt(size) : size);
-        console.log(pagination);
         return await TodoStore.fetchAllForUser(req.session.userID, pagination);
     }
 
