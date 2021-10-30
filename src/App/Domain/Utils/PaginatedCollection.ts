@@ -1,6 +1,6 @@
 import PaginationOptions from "./PaginationOptions";
 
-class TodoPaginatedCollection<T> {
+class PaginatedCollection<T> {
     items: T[]
     totalItems: number
     perPage: number
@@ -13,12 +13,27 @@ class TodoPaginatedCollection<T> {
         this.items = items;
     }
 
+    get totalPages():number {
+        return Math.ceil(this.totalItems / this.perPage);
+    }
+
     hasNext(): boolean {
-        return false
+        return this.currentPage < this.totalPages;
     }
     hasPrev(): boolean {
-        return false
+        return this.currentPage > 1 && this.currentPage < this.totalPages;
+    }
+
+    getPaginatedData(){
+        const paginatedData = {
+            totalItems: this.totalItems,
+            totalPages: this.totalPages,
+            currentPage: this.currentPage,
+            perPage: this.perPage,
+            data: this.items
+        }
+        return paginatedData;
     }
 }
 
-export default TodoPaginatedCollection;
+export default PaginatedCollection;

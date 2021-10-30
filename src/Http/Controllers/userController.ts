@@ -1,10 +1,12 @@
-import UserService from '../../App/Application/UserService';
+import UserService from '../../App/Application/User/UserService';
+import UpdateUserDTO from '../../App/Application/User/UpdateUserDTO';
 //import AppError from '../Errors/AppError';
 
 class UserController {
     
     async updateMe (req, res) {
-        const user = await UserService.updateUser(req);
+        const input = new UpdateUserDTO(req);
+        const user = await UserService.updateUser(input);
     
         res.status(200).json({
             message: "User updated successfully"

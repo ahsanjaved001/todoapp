@@ -1,6 +1,7 @@
 import * as uuid from 'uuid';
+import BaseEntity from '../Utils/BaseEntity';
 
-class TodoEntity {
+class TodoEntity extends BaseEntity {
     public id: string;
     public userID: string;
     public name: string;
@@ -8,7 +9,8 @@ class TodoEntity {
     public createdAt: Date;
     public updatedAt: Date;
 
-    constructor(id: string, userID: string, name: string, description: string){Date
+    constructor(id: string, userID: string, name: string, description: string){
+        super();
         this.id = id;
         this.userID = userID;
         this.name = name;
@@ -17,7 +19,7 @@ class TodoEntity {
     
     static createFromInput(userID: string, name: string, description: string){
         const id = uuid.v4();
-        let todo = new TodoEntity(id, userID, name, description);
+        const todo = new TodoEntity(id, userID, name, description);
         todo.createdAt = new Date();
         todo.updatedAt = new Date();
         
@@ -25,9 +27,8 @@ class TodoEntity {
     }
 
     static createFromDb(obj){
-        let todo = new TodoEntity(obj.id, obj.userID, obj.name, obj.description);
-        todo.createdAt = obj.createdAt;
-        todo.updatedAt = obj.updatedAt;
+        const todo = new TodoEntity(obj.id, obj.userID, obj.name, obj.description);
+        todo.setDates(obj.createdAt, obj.updatedAt);
 
         return todo;
     }

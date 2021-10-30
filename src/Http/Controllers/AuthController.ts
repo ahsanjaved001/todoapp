@@ -1,9 +1,13 @@
-import UserService from '../../App/Application/UserService';
+import UserService from '../../App/Application/User/UserService';
+import UserAuthService from '../../App/Infrastructure/Auth/UserAuthService';
+import UserEntity from '../../App/Domain/User/UserEntity';
+
 
 class AuthController{
     async loginUser (req, res) {
-
-        const user = await UserService.loginUser(req);
+        const userEntity = UserEntity.createFromInput(req.body.name, req.body.email, req.body.password);
+        const userAuthService = new UserAuthService(userEntity);
+        const user = await userAuthService.login(req);
     
         res.status(200).json({
             message: user
@@ -11,7 +15,9 @@ class AuthController{
     }
 
     async signUp (req, res) {
-        const user = await UserService.addUser(req);
+        const userEntity = UserEntity.createFromInput(req.body.name, req.body.email, req.body.password);
+        const userAuthService = new UserAuthService(userEntity);
+        const user = await userAuthService.signup(userEntity);
     
         res.status(200).json({
             status: 'success',

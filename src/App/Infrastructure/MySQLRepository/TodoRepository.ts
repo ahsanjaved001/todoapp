@@ -1,34 +1,39 @@
 import Todo from '../Mysql/Models/Todo';
 import TodoEntity from '../../Domain/Todo/TodoEntity';
 import PaginationOptions from '../../Domain/Utils/PaginationOptions';
+import PaginatedCollection from '../../Domain/Utils/PaginatedCollection';
+import ITodoRepository from '../../Domain/Todo/ITodoRepository';
 
 
-class TodoStore {
+class TodoStore implements ITodoRepository {
 
-    static async fetchAllForUser(userID: string, pagination: PaginationOptions){
-        const todos = await Todo.findAll({ limit: pagination.limit(), offset: pagination.offset(), where: { userID } });
-
-        return todos.map(todo => {
+    async fetchAllForUser(userID: string, pagination: PaginationOptions){
+        const todos = await Todo.findAndCountAll({ limit: pagination.limit(), offset: pagination.offset(), where: { userID } });
+        const todosCollection = todos.rows.map(todo => {
             return TodoEntity.createFromDb(todo);
         });
+        const paginatedCollection = new PaginatedCollection<TodoEntity>(pagination, todos.count, todosCollection);
+
+        return paginatedCollection.getPaginatedData();
     }
 
-    static async fetchByID(todoID: string, userID: string){
+    async fetchByID(todoID: string, userID: string){
         const todo = await Todo.findOne({where: {id: todoID, userID}});
         return TodoEntity.createFromDb(todo);
     }
 
-    static async add(todo: TodoEntity){
-        return await Todo.create(todo.toObj());
+    async add(todo: TodoEntity){
+        const result = await Todo.create(todo.toObj());
+        return TodoEntity.createFromDb(result);
     }
 
-    static async update(todo: TodoEntity){
+    async update(todo: TodoEntity){
         const todoObj = todo.toObj();
         await Todo.update(todoObj, { where: { userID: todo.userID, id: todo.id}});
         return true;
     }
 
-    static async remove(todo: TodoEntity){
+    async remove(todo: TodoEntity){
         const todoObj = todo.toObj();
         await Todo.destroy({ where: { userID: todo.userID, id: todo.id}});
         return true;

@@ -1,6 +1,6 @@
-import * as uuid from 'uuid';
+import BaseEntity from '../Utils/BaseEntity';
 
-class UserEntity {
+class UserEntity extends BaseEntity {
     public id: string;
     public name: string;
     public email: string;
@@ -9,6 +9,7 @@ class UserEntity {
     public updatedAt: Date;
 
     constructor(id: string, name: string, email: string, password: string){
+        super();
         this.id = id;
         this.name = name;
         this.email = email;
@@ -16,17 +17,15 @@ class UserEntity {
     }
 
     static createFromInput(name: string, email: string, password: string){
-        const id = uuid.v4();
-        let user = new UserEntity(id, name, email, password);
-        user.createdAt = new Date();
-        user.updatedAt = new Date();
+        const id = UserEntity.generateID();
+        const user = new UserEntity(id, name, email, password);
+        user.setDates(new Date(), new Date());
         return user;
     }
 
     static createFromDB(obj){
-        let user = new UserEntity(obj.id, obj.name, obj.email, obj.password);
-        user.createdAt = obj.createdAt;
-        user.updatedAt = obj.updatedAt;
+        const user = new UserEntity(obj.id, obj.name, obj.email, obj.password);
+        user.setDates(obj.createdAt, obj.updatedAt);
         return user;
     }
 

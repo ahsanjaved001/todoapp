@@ -1,8 +1,11 @@
 import { Sequelize } from 'sequelize';
+import config from '../Config';
 
-const sequelize = new Sequelize('todoapp', 'root', '6155276@Carbonteq', {
+const mysql = config.mysql;
+
+const sequelize = new Sequelize(mysql.DB, mysql.USERNAME, mysql.PASSWORD, {
     dialect: 'mysql',
-    host: 'localhost'
+    host: mysql.HOST
 });
 
 sequelize.sync().then(result => {
