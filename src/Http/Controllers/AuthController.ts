@@ -1,6 +1,7 @@
 import UserAuthService from '../../App/Infrastructure/Auth/UserAuthService';
 import UserEntity from '../../App/Domain/User/UserEntity';
 import GoogleAuthService from '../../App/Infrastructure/Auth/GoogleAuthService';
+import GoogleAuth from '../../App/Infrastructure/Api/GoogleAuth';
 
 
 class AuthController{
@@ -14,11 +15,23 @@ class AuthController{
         });
     }
 
-    async loginUserGoogle(req, res) {
-        const googleAuthService = new GoogleAuthService();
-        console.log(googleAuthService.getURL());
+    async getUrlForGoogleUser(req, res) {
+        const googleAuth = new GoogleAuth();
         res.status(200).json({
-            url: await googleAuthService.getURL()
+            url: await googleAuth.getURL()
+        });
+    }
+
+    async getGoogleUserProfile(req, res) {
+        const googleAuth = new GoogleAuth();
+        const result = await googleAuth.getGoogleAccountFromCode(req.query.code);
+        const googleAuthService = new GoogleAuthService();
+        req.obj = result;
+        const token = await googleAuthService.login(req);
+
+        res.status(200).json({
+            message: "User logged in successfully!",
+            token
         });
     }
 

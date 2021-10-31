@@ -13,7 +13,11 @@ router
 
   router
   .route('/google')
-  .get(authController.loginUserGoogle);
+  .get(authController.getUrlForGoogleUser);
+
+  router
+  .route('/google/callback')
+  .get(authController.getGoogleUserProfile);
 
 router
   .route('/dashboard')
