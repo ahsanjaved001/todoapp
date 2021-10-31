@@ -1,6 +1,6 @@
-import UserService from '../../App/Application/User/UserService';
 import UserAuthService from '../../App/Infrastructure/Auth/UserAuthService';
 import UserEntity from '../../App/Domain/User/UserEntity';
+import GoogleAuthService from '../../App/Infrastructure/Auth/GoogleAuthService';
 
 
 class AuthController{
@@ -11,6 +11,14 @@ class AuthController{
     
         res.status(200).json({
             message: user
+        });
+    }
+
+    async loginUserGoogle(req, res) {
+        const googleAuthService = new GoogleAuthService();
+        console.log(googleAuthService.getURL());
+        res.status(200).json({
+            url: await googleAuthService.getURL()
         });
     }
 

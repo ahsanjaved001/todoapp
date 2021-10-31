@@ -11,6 +11,10 @@ router
   .route('/login')
   .post(authController.loginUser);
 
+  router
+  .route('/google')
+  .get(authController.loginUserGoogle);
+
 router
   .route('/dashboard')
   .get(auth.authenticate, userController.dashboard);

@@ -3,8 +3,6 @@ import * as express from 'express';
 import * as session from 'express-session';
 // import mongoDbSession from 'connect-mongodb-session')(session);
 import * as cookieParser from 'cookie-parser';
-// import passport from 'passport');
-// require('./passport-setup');
 
 
 import todoRouter from './Routes/TodoRoutes';
@@ -27,32 +25,24 @@ app.use(session({
 })
 );
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// app.get('/google',
-//     passport.authenticate('google', {
-//         scope:
-//             ['profile', 'email']
-//     }
-//     ));
-
-// app.get('/google/callback',
-//     passport.authenticate('google', {failureRedirect: '/'}),
-//     function(req, res){
-//         res.redirect('/todo');
-//     });
-
-
 // Used to set views and static files in public folder
 // app.set('view engine', 'pug');
 // app.set('views', path.join(__dirname, 'views'));
 // app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use(express.json({ limit: '10kb' }));
 
 app.use('/api/todo', todoRouter);
 app.use('/api/users', userRouter);
+
+app.use('/google/callback', (req,res,next)=>{
+    console.log(req);
+    console.log('-----------------------------------------');
+    res.status(200).json({
+        message: "User logged in successfully!"
+    });
+});
 
 app.all('*', (req, res, next) => {
     res.status(400).json({

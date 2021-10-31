@@ -8,7 +8,7 @@ const userStore = new UserStore();
 class UserAuthService extends AuthService{
     public userEntity: UserEntity;
 
-    constructor(user: UserEntity) {
+    constructor(user: UserEntity = null) {
         super();
         this.userEntity = user;
     }
@@ -20,8 +20,8 @@ class UserAuthService extends AuthService{
         const result = await this.verifyCredentials(user, password);
         if (result){
             req.session.userID = this.userEntity.id;
-            console.log(this.generateToken(this.userEntity.id));
-            return await this.generateToken(this.userEntity.id);
+            const token = await this.generateToken(this.userEntity.id);
+            return token;
         } else {
             return;
         }

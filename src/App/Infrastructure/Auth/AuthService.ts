@@ -5,14 +5,14 @@ import UserStore from '../MySQLRepository/UserRepository';
 import AuthToken from '../../Application/Auth/AuthToken';
 import IAuthService from '../../Application/Auth/IAuthService';
 
-const jwt_scret = config.jwt;
+const jwtSecret = config.jwt;
 const userStore = new UserStore();
 
 abstract class AuthService implements IAuthService{
 
     async verifyToken(authToken: AuthToken): Promise<boolean>{
         if (authToken.token){
-            const result = jwt.verify(authToken.token, jwt_scret.secret);
+            const result = jwt.verify(authToken.token, jwtSecret.secret);
             return true;
         } else {
             return false;
@@ -20,7 +20,7 @@ abstract class AuthService implements IAuthService{
     }
 
     async generateToken(userID: string): Promise<AuthToken> {
-        const token = jwt.sign({id: userID}, jwt_scret.secret);
+        const token = jwt.sign({id: userID}, jwtSecret.secret);
         return new AuthToken(token);
     }
 
@@ -32,7 +32,7 @@ abstract class AuthService implements IAuthService{
         const user = UserEntity.createFromInput(name, email, password);
         await userStore.add(user);
 
-        return ;
+        return await this.generateToken(user.id);
     }
 }
 
